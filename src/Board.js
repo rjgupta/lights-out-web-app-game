@@ -94,43 +94,41 @@ class Board extends Component {
   }
 
   /** Render game board or winning message. */
-  render() {
-    // make table board
-
-    // TODO
-    let tableBoard = [];
+  makeTable() {
+    let tblBoard = [];
     for (let y = 0; y < this.props.nrows; y++) {
       let row = [];
       for (let x = 0; x < this.props.ncols; x++) {
         let coord = `${y}-${x}`;
         row.push(
-        <Cell 
-        key={coord} 
-        isLit={this.state.board[y][x]} 
-        flipCellsAroundMe={() => this.flipCellsAround(coord)} />);
+          <Cell
+            key={coord}
+            isLit={this.state.board[y][x]}
+            flipCellsAroundMe={() => this.flipCellsAround(coord)}
+          />
+        );
       }
-      tableBoard.push(<tr key={y} >{row}</tr>);
+      tblBoard.push(<tr key={y}>{row}</tr>);
     }
-
-    makeTable() {
-      <table className="Board">
-          <tbody>{tableBoard}</tbody>
-      </table>
-    }
-
     return (
-      // if the game is won, just show a winning msg & render nothing else
+      <table className='Board'>
+        <tbody>{tblBoard}</tbody>
+      </table>
+    );
+  }
+  render() {
+    return (
       <div>
         {this.state.hasWon ? (
-          <div className="winner">
-            <span className="neon-orange">You</span>
-            <span className="neon-blue">Win!</span>
+          <div className='winner'>
+            <span className='neon-orange'>YOU</span>
+            <span className='neon-blue'>WIN!</span>
           </div>
         ) : (
           <div>
-            <div className="Board-title">
-              <div className="neon-orange">Lights</div>
-              <div className="neon-blue">Out</div>
+            <div className='Board-title'>
+              <div className='neon-orange'>Lights</div>
+              <div className='neon-blue'>Out</div>
             </div>
             {this.makeTable()}
           </div>
